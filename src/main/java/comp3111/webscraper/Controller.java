@@ -18,7 +18,7 @@ import javafx.collections.*;//basic 4
 import javafx.event.ActionEvent;//basic 4
 import javafx.event.EventHandler;//basic 4
 import javafx.application.Application;//basic 4
-import javafx.stage.Stage;
+import javafx.stage.Stage;//basic 4///
 
 
 /**
@@ -58,15 +58,31 @@ public class Controller {
     
   
     
-  //A list to use to store the item,pass this to the showinfo function basic 4
+  //basic 4,A list to use to store the item,pass this to the showinfo function 
     private WebScraper scraper;
-    //please call this function when searching items using basic search or refine search,basic 4
+    //basic 4,Show the correct information in the tab Table
     public void showinfo(ObservableList<Item> items){
     	titlecol.setCellValueFactory(new PropertyValueFactory<>("title"));
     	pricecol.setCellValueFactory(new PropertyValueFactory<>("price"));
     	urlcol.setCellValueFactory(new PropertyValueFactory<>("hyperlink"));
     	postcol.setCellValueFactory(new PropertyValueFactory<>("postdate"));
     	table.setItems(items);	
+    }
+    //this is for basic 4. To make the URL clickable to open a webpage
+    public void clickableURL(Hyperlink hyperlink){
+    	hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+			Application a = new Application() {
+
+                @Override
+                public void start(Stage stage)
+                {
+                }
+            };
+            @Override
+            public void handle(ActionEvent t) {
+				a.getHostServices().showDocument(hyperlink.getText());
+            }
+		});
     }
     /**
      * Default controller
@@ -94,22 +110,8 @@ public class Controller {
     	String output = "";
     	for (Item item : result) {
     		output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\n";
-    		//this is for basic 4. To make the URL clickable to open a webpage
-    		item.setHyperlink(item.getUrl());
-    		item.getHyperlink().setOnAction(new EventHandler<ActionEvent>() {
-    			Application a = new Application() {
-
-                    @Override
-                    public void start(Stage stage)
-                    {
-                    }
-                };
-                @Override
-                public void handle(ActionEvent t) {
-    				a.getHostServices().showDocument(item.getHyperlink().getText());
-                }
-    		});
-    		////////////////////////////////////////////////
+    		item.setHyperlink(item.getUrl());//basic 4,set item's url to hyperlink
+    		clickableURL(item.getHyperlink());//basic 4
     		items.add(item);//basic 4
     	}
     	showinfo(items);//basic 4
