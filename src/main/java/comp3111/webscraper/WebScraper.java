@@ -99,6 +99,7 @@ public class WebScraper {
 				HtmlElement htmlItem = (HtmlElement) items.get(i);
 				HtmlAnchor itemAnchor = ((HtmlAnchor) htmlItem.getFirstByXPath(".//p[@class='result-info']/a"));
 				HtmlElement spanPrice = ((HtmlElement) htmlItem.getFirstByXPath(".//a/span[@class='result-price']"));
+				HtmlElement  postdate=((HtmlElement) htmlItem.getFirstByXPath(".//time[@class='result-date']"));//basic 4, for getting the posted date
 
 				// It is possible that an item doesn't have any price, we set the price to 0.0
 				// in this case
@@ -106,10 +107,11 @@ public class WebScraper {
 
 				Item item = new Item();
 				item.setTitle(itemAnchor.asText());
-				item.setUrl(DEFAULT_URL + itemAnchor.getHrefAttribute());
+				item.setUrl(itemAnchor.getHrefAttribute());
 
 				item.setPrice(new Double(itemPrice.replace("$", "")));
-
+				String pos= postdate==null?"no posted date":postdate.asText();//check whether the date is null
+				item.setPostdate(pos);//set the item's posted date
 				result.add(item);
 			}
 			client.close();
