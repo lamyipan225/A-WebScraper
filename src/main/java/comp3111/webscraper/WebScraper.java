@@ -110,8 +110,8 @@ public class WebScraper {
 				item.setUrl(itemAnchor.getHrefAttribute());
 
 				item.setPrice(new Double(itemPrice.replace("$", "")));
-				String pos= postdate==null?"no posted date":postdate.asText();//check whether the date is null
-				item.setPostdate(pos);//set the item's posted date
+				String pos= postdate==null?"no posted date":postdate.asText();//basic 4,check whether the date is null
+				item.setPostdate(pos);//basic 4,set the item's posted date
 				result.add(item);
 			}
 			client.close();

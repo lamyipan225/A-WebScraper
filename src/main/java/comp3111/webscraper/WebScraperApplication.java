@@ -48,15 +48,18 @@ public class WebScraperApplication extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
     	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource(UI_FILE));
+    	loader.setLocation(getClass().getResource(UI_FILE)); 	
    		VBox root = (VBox) loader.load();
    		Scene scene =  new Scene(root);
    		stage.setScene(scene);
    		stage.setTitle("WebScrapper");
    		stage.show();
+   		Controller controller=loader.getController();//Basic 6
+    	controller.setstage(stage);//Basic 6
     		
 
 	}
+	
 
 	/**
 	 * Entry point of the program. No argument should be supplied
