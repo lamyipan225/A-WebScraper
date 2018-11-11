@@ -136,10 +136,6 @@ public class Controller {
 	    	count++;
 	    	lastsearch.setDisable(false);
     }
-    
-    /**
-     * Called when the new button is pressed. Very dummy action - print something in the command prompt.
-     */
     //Basic 6 Last search
     @FXML
     void actionLastSearch(ActionEvent event) {
