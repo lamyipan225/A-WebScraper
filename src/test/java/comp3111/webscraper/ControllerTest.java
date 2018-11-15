@@ -10,10 +10,7 @@ import javafx.stage.Stage;
 import javafx.collections.*;
 import javafx.fxml.FXMLLoader;
 import javafx.application.Application;
-public class ControllerTest extends Application {
-	@Override
-	public void start(Stage stage)throws Exception {
-	}
+public class ControllerTest  {
 	@Test
 	public void TestShowinfo()throws Exception {
 		com.sun.javafx.application.PlatformImpl.startup(()->{});
@@ -38,12 +35,12 @@ public class ControllerTest extends Application {
 	public void Testsetstage() throws Exception {
 			com.sun.javafx.application.PlatformImpl.startup(()->{});
 			FXMLLoader loader = new FXMLLoader();
-	    	loader.setLocation(getClass().getResource("/ux.fxml"));
+	    	loader.setLocation(getClass().getResource("/ui.fxml"));	    	
 	    	VBox root = (VBox) loader.load();
 	   		Scene scene =  new Scene(root);
 	    	Controller controller=loader.getController();
-	    	controller.setstage(stage);
-	    	assertEquals(controller.getStage(),stage);
+	    	controller.setstage(null);
+	    	assertEquals(controller.getStage(),null);
 		
 		
 	}
