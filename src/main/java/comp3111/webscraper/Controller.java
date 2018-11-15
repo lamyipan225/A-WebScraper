@@ -68,6 +68,14 @@ public class Controller {
     public void setstage(Stage stage){
     	mystage=stage;
     }
+    //helper function for unit testing
+    public Stage getStage() {
+    	return mystage;
+    }
+    //help function for unit testing.
+    public TableView<?> getTable() {
+    	return table;
+    }
     private WebScraper scraper;
     //basic 4,Show the correct information in the tab Table
     public void showinfo(ObservableList<Item> items){
