@@ -178,7 +178,7 @@ public class Controller {
     void ActionQuit(ActionEvent event) {
     	mystage.close();
     }
-    //Basic 6,Close the cuurent search Record
+    //Basic 6,Close the current search Record
     @FXML
     void ActionClose(ActionEvent event)throws Exception {
     	WebScraperApplication a =new WebScraperApplication();
