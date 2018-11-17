@@ -25,6 +25,7 @@ import javafx.fxml.FXMLLoader;//Basic 6
 import javafx.scene.layout.VBox;//Basic 6
 import javafx.scene.Scene;//Basic 6
 import javafx.scene.control.MenuItem;//Basic 6
+import javafx.scene.control.Button;
 /**
  * 
  * @author kevinw
@@ -34,6 +35,9 @@ import javafx.scene.control.MenuItem;//Basic 6
  * 
  */
 public class Controller {
+
+    @FXML
+    private Button gobutton;
     @FXML 
     private Label labelCount; 
     @FXML 
@@ -59,24 +63,58 @@ public class Controller {
     @FXML  
     private BarChart<?, ?> barChartHistogram;
     private int count;//Basic 6
-    private String currentsearch="";//Basic 6
-    private String previoussearch;//Basic 6
+    public String currentsearch="";//Basic 6
+    public String previoussearch;//Basic 6
     @FXML
     private MenuItem lastsearch;//Basic 6
+    @FXML
+    private MenuItem closemenu;
+
+    @FXML
+    private MenuItem quitmenu;
+
+    @FXML
+    private MenuItem helpmenu;
     private Stage mystage;//basic 6
     //Basic 6,helper function
     public void setstage(Stage stage){
     	mystage=stage;
     }
     //helper function for unit testing
+    public Button getbutton(){
+    	return gobutton;
+    }
+    public void settextfield(String x){
+    	textFieldKeyword.setText(x);
+    }
+    //helper function for unit testing
     public Stage getStage() {
     	return mystage;
     }
+  //helper function for unit testing
+    public MenuItem getquit(){
+    	return quitmenu;
+    }
+  //helper function for unit testing
+    public MenuItem gethelp(){
+    	return helpmenu;
+    }
+  //helper function for unit testing
+    public MenuItem getclose(){
+    	return closemenu;
+    }
+    
     //help function for unit testing.
     public TableView<?> getTable() {
     	return table;
     }
+    //helper function for testing
+  //helper function for testing
+    public MenuItem getlastsearch(){
+    	return lastsearch;
+    }
     private WebScraper scraper;
+    public Alert alert;//basic 6
     //basic 4,Show the correct information in the tab Table
     public void showinfo(ObservableList<Item> items){
     	titlecol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -137,10 +175,8 @@ public class Controller {
 		    	currentsearch=textFieldKeyword.getText(); 
 		    	previoussearch=currentsearch;	
 	    	}
-	    	else if (count>0){
-	    		previoussearch=currentsearch;
-	    		currentsearch=textFieldKeyword.getText();
-	    	}	
+	    	previoussearch=currentsearch;
+	    	currentsearch=textFieldKeyword.getText();
 	    	count++;
 	    	lastsearch.setDisable(false);
     }
@@ -167,7 +203,7 @@ public class Controller {
     //Basic 6,About your team.
     @FXML
     void ActionHelp(ActionEvent event) {
-    	Alert alert = new Alert(AlertType.INFORMATION);
+        alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("About your team");
     	alert.setHeaderText(null);
     	alert.setContentText("Name: Leung Chi Ming\nITSC:cmleungah@connect.ust.hk\nGithub:Dominic852\n\nName:Fok Chun Yin \nITSC: cyfok@connect.ust.hk \nGithub: cyfok4444\n\nName: Lam Yi Pan \nITSC: yplamae@connect.ust.hk\nGithub: lamyipan225");
@@ -176,7 +212,8 @@ public class Controller {
     //Basic 6,Quit the program
     @FXML
     void ActionQuit(ActionEvent event) {
-    	mystage.close();
+    	//mystage.close();
+    	mystage.hide();
     }
     //Basic 6,Close the current search Record
     @FXML
