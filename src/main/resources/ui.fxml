@@ -40,15 +40,15 @@
             <MenuItem fx:id="lastsearch" disable="true" mnemonicParsing="false" onAction="#actionLastSearch" text="Last Search" />
             <MenuItem mnemonicParsing="false" text="Open" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#ActionClose" text="Close" />
+            <MenuItem fx:id="closemenu" mnemonicParsing="false" onAction="#ActionClose" text="Close" />
             <MenuItem mnemonicParsing="false" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#ActionQuit" text="Quit" />
+            <MenuItem fx:id="quitmenu" mnemonicParsing="false" onAction="#ActionQuit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#ActionHelp" text="About Your Team" />
+            <MenuItem fx:id="helpmenu" mnemonicParsing="false" onAction="#ActionHelp" text="About Your Team" />
           </items>
         </Menu>
       </menus>
@@ -61,7 +61,7 @@
                      <children>
                         <TextField fx:id="textFieldKeyword" layoutX="14.0" layoutY="36.0" prefHeight="25.0" prefWidth="131.0" promptText="Keyword" />
                         <!--  this is the Go button. When it is clicked, it calls Controller.actionSearch() -->
-                        <Button layoutX="145.0" layoutY="36.0" mnemonicParsing="false" onAction="#actionSearch" prefHeight="30.0" prefWidth="61.0" text="Go" />
+                        <Button fx:id="gobutton" layoutX="145.0" layoutY="36.0" mnemonicParsing="false" onAction="#actionSearch" prefHeight="30.0" prefWidth="61.0" text="Go" />
 
                      </children>
                   </AnchorPane>
