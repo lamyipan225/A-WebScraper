@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 
 
 /**
- * @author kevinw
+ * 
  * 
  * The entry point of the entire program. It is quite unlikely you need to change this file. But you can change it if you want :)
  * 
@@ -33,7 +33,7 @@ import javafx.scene.Scene;
  * The program will starts with the function public static void main and it will eventually trigger the function public void start. What this
  * function will do is to load this ui.fxml into a GUI application. The ui.fxml has specified that "all event will be handled by the class - 
  * Controller". Let's trace the function void start which will be called by the framework shortly after the program start.  
- *
+ *@author kevinw
  * 
  */
 public class WebScraperApplication extends Application {
