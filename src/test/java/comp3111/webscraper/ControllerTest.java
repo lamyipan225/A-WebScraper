@@ -81,7 +81,7 @@ public class ControllerTest  {
    		Scene scene =  new Scene(root);
     	Controller controller=loader.getController();
     	controller.settextfield("apple");
-    	for (int i =0;i<5;i++){
+    	for (int i =0;i<2;i++){
     		controller.getbutton().fire();
     	}
     	assertEquals(controller.getlastsearch().isDisable(),false);
@@ -135,6 +135,19 @@ public class ControllerTest  {
     				  assertEquals(stage.isShowing(),false);
     			  }
     			);
+	}
+	@Test
+	public void TestactionRefine()throws Exception{
+		FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("/ui.fxml"));	    	
+    	VBox root = (VBox) loader.load();
+   		Scene scene =  new Scene(root);
+    	Controller controller=loader.getController();
+    	controller.currentsearch="apple";
+    	controller.settextfield("iphone");
+    	controller.getRefine().setDisable(false);
+    	controller.getRefine().fire();
+    	assertEquals(controller.getRefine().isDisable(),true);
 	}
 	
 }

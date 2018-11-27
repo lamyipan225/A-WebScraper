@@ -202,6 +202,16 @@ public class Controller {
     	return closemenu;
     }
     
+  //helper function for unit testing
+    /**
+     *  A helper function in unit testing to get the control of the button named "refinebutton".
+     * @return - the button named "refinebutton".
+     * @author yplamae
+     */
+    public Button getRefine(){
+    	return refinebotton;
+    }
+    
     //help function for unit testing.
     /**
      *  A helper function in unit testing to get the control of the Table view named"Table".
