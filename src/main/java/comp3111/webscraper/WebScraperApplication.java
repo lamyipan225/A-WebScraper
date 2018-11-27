@@ -54,8 +54,8 @@ public class WebScraperApplication extends Application {
    		stage.setScene(scene);
    		stage.setTitle("WebScrapper");
    		stage.show();
-   		Controller controller=loader.getController();//Basic 6
-    	controller.setstage(stage);//Basic 6
+   		Controller controller=loader.getController();//Basic 6 and 5
+    	controller.setstage(stage);//Basic 6 and 5
     		
 
 	}
