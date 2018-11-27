@@ -117,7 +117,7 @@ public class WebScraper {
 				}
 				HtmlAnchor next = ((HtmlAnchor) page.getFirstByXPath("//*[@id=\"searchform\"]/div[3]/div[3]/span[2]/a[3]")); //basic3, check if there is next page 
 				if (next.getHrefAttribute().toString().compareTo("")==0) {
-					System.out.println("Finshed scraping");
+					System.out.println("Finish scraping");
 					client.close();
 					break;
 				}else {
