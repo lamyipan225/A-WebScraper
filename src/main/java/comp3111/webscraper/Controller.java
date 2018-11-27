@@ -42,6 +42,8 @@ public class Controller {
 	 */
     @FXML
     private Button gobutton;
+    @FXML
+    private Button refinebotton;
     @FXML 
     private Label labelCount; 
     @FXML 
@@ -302,7 +304,34 @@ public class Controller {
 	    	currentsearch=textFieldKeyword.getText();
 	    	count++;
 	    	lastsearch.setDisable(false);
+	    	refinebotton.setDisable(false);//basic5
     }
+    //Basic 5 Refine search
+    /**
+     * This function will be called when "Refine" button is clicked and filter the searched data and keep those items 
+     * with their titles containing the keywords typed in the text area.
+     * @param event - The mouse click
+     * @author yplamae
+     */
+    @FXML
+    private void actionRefine(ActionEvent event) {
+    	String keyword = textFieldKeyword.getText();
+    	ObservableList<Item> items=FXCollections.observableArrayList();
+    	List<Item> result = scraper.scrape(currentsearch);
+    	String output = "";
+    	for (Item item : result) {
+    		if (item.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
+    			output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\n";
+    			item.setHyperlink(item.getUrl());
+    			clickableURL(item.getHyperlink());
+    			items.add(item);
+    		}
+    	}
+    	showinfo(items);
+    	textAreaConsole.setText(output);
+    	refinebotton.setDisable(true);
+    }
+    
     //Basic 6 Last search
     /**
      * This function will be called when "Last Search" is clicked and will search the last keyword that user search.
