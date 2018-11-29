@@ -7,7 +7,12 @@ import javafx.scene.control.Hyperlink;
  * @author cmleungah
  *
  */
-public class Item {
+public class Item implements Comparable<Item>{
+	/**
+	 * The portal of the item 
+	 * @author chunyinfok
+	 */
+	private String portal; //basic 2, portal
 	/**
 	 * The posted date of the item
 	 * @author cnleungah
@@ -115,6 +120,45 @@ public class Item {
 		this.hyperlink = new Hyperlink(hyperlink);
 	}
 	
+	/**
+	 * To change the portal of the item
+	 * @author chunyinfok
+	 * @param new_portal
+	 */
+	public void setPortal(String new_portal) {
+		portal = new_portal;
+	}
+	/**
+	 * To get the portal of the item
+	 * @author chunyinfok
+	 * @return
+	 */
+	public String getPortal() {
+		return portal;
+	}
 	
-
+	/**
+	 * Comparator function to sort the result-list
+	 * @author chunyinfok
+	 */
+	public int compareTo(Item item) {
+		double diff =  this.price - item.price ;
+		if ( diff < 0 ) {
+			return (int) diff;
+		}
+		else if ( diff > 0 ) {
+			return (int) diff;
+		}
+		else {
+			if ( this.portal == "craiglist" && item.portal == "preloved") {
+				return -1;
+			}
+			else if ( this.portal == "preloved" && item.portal == "craiglist") {
+				return 10;
+			}
+			else {
+				return this.url.compareTo(item.url);
+			}
+		}
+	}
 }
