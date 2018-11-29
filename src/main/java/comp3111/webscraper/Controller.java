@@ -63,7 +63,7 @@ public class Controller {
      * @return 
      * @author chunyinfok
      */
-    private String returnLatestDate(String date1, String date2) {
+    public String returnLatestDate(String date1, String date2) {
     	int month_comparator = 0;
     	int day_comparator  = 0;   // -1 = date1 smaller, 0 = equal, 1 = date1 bigger
     	if ( date1.length() < date2.length()) {
@@ -492,12 +492,6 @@ public class Controller {
 	    	String output = "";
 	    	
 	    	//basic 1 start
-	    	if ( result == null ) {
-	    		labelCount.setText("0");
-	    		labelMin.setText("-");
-	    		labelLatest.setText("-");
-	    		labelPrice.setText("-");
-	    	}
 	    	
 	    	int count = 0;
 	    	int average_count = 0;
