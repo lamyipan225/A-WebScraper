@@ -7,6 +7,12 @@ import static org.junit.Assert.*;
 public class ItemTest {
 
 	@Test
+	public void testSetPortal() {
+		Item i = new Item();
+		i.setPortal("AAA");
+		assertEquals(i.getPortal(),"AAA") ;
+	}
+	@Test
 	public void testSetTitle() {
 		Item i = new Item();
 		i.setTitle("ABCDE");
