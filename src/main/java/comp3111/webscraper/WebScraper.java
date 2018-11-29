@@ -124,6 +124,8 @@ public class WebScraper {
 			searchUrl = DEFAULT_URL + "search/sss?sort=rel&query=" + URLEncoder.encode(keyword, "UTF-8");
 			page = client.getPage(searchUrl);
 			
+			//basic 3 start
+			
 			while (true) {
 				counter++;
 				System.out.println("Page "+counter);
@@ -168,6 +170,8 @@ public class WebScraper {
 				}
 			
 			}
+			
+		//basic 3 end;	
 		Collections.sort(result);
 		return result;
 		} catch (Exception e) {
