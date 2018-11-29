@@ -11,8 +11,10 @@ public class WebscraperTest{
 	@Test
 	public void TestScrape(){
 		WebScraper a =new WebScraper();
-		List<Item> items=a.scrape("apple");
+		List<Item> items=a.scrape("ps4");
 		assertNotEquals(items,null);
+		List<Item> items_2=a.scrape("ps4444444444444444444");
+		assertNotEquals(items_2,null);
 	}
 	
 	
