@@ -57,6 +57,198 @@ public class Controller {
     @FXML
     private TextArea textAreaConsole;
     /**
+     * Helper function for comparing two Postdate of formal "JAN 1"
+     * @param date1
+     * @param date2
+     * @return 
+     * @author chunyinfok
+     */
+    private String returnLatestDate(String date1, String date2) {
+    	int month_comparator = 0;
+    	int day_comparator  = 0;   // -1 = date1 smaller, 0 = equal, 1 = date1 bigger
+    	if ( date1.length() < date2.length()) {
+    		day_comparator = -1; 
+    	}
+    	else if ( date1.length() > date2.length()) {
+    		day_comparator = 1;
+    	}
+    	else {
+    		if (date1.charAt(4) < date2.charAt(4)) {
+    			day_comparator = -1;
+    		}
+    		else if (date1.charAt(4) > date2.charAt(4)) {
+    			day_comparator = 1;
+    		}
+    		else {
+    			if (date1.length()==6) {
+    				if ( date1.charAt(5) < date2.charAt(5)) {
+    					day_comparator = -1;
+    				}
+    				else if ( date1.charAt(5) > date2.charAt(5)) {
+    					day_comparator = 1;
+    				}
+    				else {
+    					day_comparator = 0;
+    				}
+    			}
+    			else {
+    				day_comparator = 0;
+    			}
+    		}
+    	}
+    	if ( date1.charAt(0) == date2.charAt(0) &&date1.charAt(0) == 'M' ) {
+    		if (date1.charAt(2)==date2.charAt(2)) {
+    			month_comparator = 0;
+    		}
+    		else if ( date1.charAt(2) == 'R') {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = 1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == date2.charAt(0) &&date1.charAt(0) == 'A') {
+    		if (date1.charAt(1)== date2.charAt(1)) {
+    			month_comparator =0;
+    		}
+    		else if (date1.charAt(1) == 'P') {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = -1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == date2.charAt(0) && date1.charAt(0) == 'J') {
+    		if ( date1.charAt(1) == 'A' ) {
+    			if ( date1.charAt(1) == date2.charAt(1)) {
+    				month_comparator = 0;
+    			}
+    			else {
+    				month_comparator = -1;
+    			}
+    		}
+    		else if ( date2.charAt(1) == 'A'){
+    			month_comparator = 1;
+    		}
+    		else if ( date1.charAt(2) == date2.charAt(2) ) {
+    			month_comparator = 0;
+    		}
+    		else if ( date1.charAt(2) == 'N' ) {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = 1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == date2.charAt(0) && date1.charAt(0) != 'M' && date1.charAt(0) != 'J' && date1.charAt(0) != 'A') {
+    		month_comparator = 0;
+    	}
+    	else if ( date1.charAt(0) == 'D' ) {
+    		month_comparator = 1;
+    	}
+    	else if ( date1.charAt(0) == 'N') {
+    		if ( date2.charAt(0) == 'D') {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = 1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == 'O') {
+    		if ( date2.charAt(0) == 'D' || date2.charAt(0) == 'N') {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = 1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == 'S') {
+    		if ( date2.charAt(0) == 'D' || date2.charAt(0) == 'N' || date2.charAt(0) == 'O') {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = 1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == 'A' && date1.charAt(1) == 'U') {
+    		if ( date2.charAt(0) == 'D' || date2.charAt(0) == 'N' || date2.charAt(0) == 'O' || date2.charAt(0) == 'S') {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = 1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == 'J' && date1.charAt(2) =='L') {
+    		if ( date2.charAt(0) == 'D' || date2.charAt(0) == 'N' || date2.charAt(0) == 'O' || date2.charAt(0) == 'S' || (date2.charAt(0) == 'A' && date2.charAt(1)=='U')) {
+    			month_comparator = -1;
+    		}
+    		else {
+    			month_comparator = 1;
+    		}
+    	}
+    	else if (date1.charAt(0) == 'J' && date1.charAt(1) =='U') {
+    		if ( date2.charAt(0) == 'F' || date2.charAt(0)=='M' || (date2.charAt(0) =='A' &&date2.charAt(1)=='P')){
+    			month_comparator = 1;
+    		}
+    		else {
+    			month_comparator = -1;
+    		}
+    	}
+    	else if (date1.charAt(0) == 'M' && date1.charAt(2) =='Y') {
+    		if ( (date2.charAt(0)=='A'&&date2.charAt(1)=='P') || date2.charAt(0)=='F' || (date2.charAt(0)=='J' &&date2.charAt(1)=='A')){
+    			month_comparator = 1;
+    		}
+    		else {
+    			month_comparator = -1;
+    		}
+    	}
+    	else if ( date1.charAt(0) == 'A'){
+    		if ( date2.charAt(2) == 'R' || date2.charAt(0)=='F' || (date2.charAt(2)=='R'&&date2.charAt(0)=='M')) {
+    			month_comparator = 1;
+    		}
+    		else {
+    			month_comparator = -1;
+    		}
+    	}
+    	else if ( date1.charAt(2) =='R' ) {
+    		if (date2.charAt(0) =='F' || ( date2.charAt(0) =='J' && date2.charAt(1)=='A')) {
+    			month_comparator =1;
+    		}
+    		else {
+    			month_comparator =-1;
+    		}
+    	}
+    	else if ( date1.charAt(0) =='F') {
+    		if (date2.charAt(0) == 'J' && date2.charAt(1) =='A') {
+    			month_comparator = 1;
+    		}
+    		else {
+    			month_comparator = -1;
+    		}
+    	}
+    	else {
+    		month_comparator = -1;
+    	}
+    	
+    	if (month_comparator == -1) {
+    		return date2;
+    	}
+    	else if ( month_comparator == 1 ) {
+    		return date1;
+    	}
+    	else {
+    		if (day_comparator == 1) {
+    			return date1;
+    		}
+    		else if ( day_comparator == -1) {
+    			return date2;
+    		}
+    		else {
+    			return date1;
+    		}
+    	}
+    }
+    /**
      * The table view of the tab "table"
      * @author cmleungah
      */
@@ -298,12 +490,78 @@ public class Controller {
 	    	System.out.println("actionSearch: " + textFieldKeyword.getText());
 	    	List<Item> result = scraper.scrape(textFieldKeyword.getText());
 	    	String output = "";
+	    	
+	    	//basic 1 start
+	    	if ( result == null ) {
+	    		labelCount.setText("0");
+	    		labelMin.setText("-");
+	    		labelLatest.setText("-");
+	    		labelPrice.setText("-");
+	    	}
+	    	
+	    	int count = 0;
+	    	int average_count = 0;
+	    	double total_price = 0.0;
+	    	double min = -1 ;
+	    	String latestDate = "JAN 1";
+	    	for ( Item item : result) {
+	    		if ( item.getPrice() != 0.0) {
+	    			min = item.getPrice();
+	    			labelMin.setText(item.getUrl());
+	    			break;
+	    		}
+	    	}
+	    	labelLatest.setText("-");
+	    	//basic1 end
+	    	
 	    	for (Item item : result) {
-	    		output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\n";
+	    		output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\t" + item.getPortal()+ "\n";
 	    		item.setHyperlink(item.getUrl());//basic 4,set item's url to hyperlink
 	    		clickableURL(item.getHyperlink());//basic 4
 	    		items.add(item);//basic 4
+	    		
+	    		//basic 1  start
+	    		count++;
+	    		if ( item.getPrice() != 0.0 ) {
+	    			average_count++;
+	    			total_price += item.getPrice();
+	    			if ( item.getPrice() < min ) {
+	    				min = item.getPrice();
+	    				labelMin.setText(item.getUrl());
+	    			}
+	    		}
+	    		if ( item.getPostdate() != "no posted date") {
+	    			latestDate = returnLatestDate(latestDate,item.getPostdate());
+	    			if ( latestDate == item.getPostdate()) {
+	    				labelLatest.setText(item.getUrl());
+	    		 	}
+	    		}
+	    		//basic 1 end
 	    	}
+	    	
+	    	//basic 1 start
+	    	if ( min != -1) {            // 1 button
+	    		clickableURL (labelMin );    
+	    	}
+	    	else {
+	    		labelMin.setText("-");
+	    	}
+	    	
+	    	if ( labelLatest.getText() != "-") {  // 2 button
+	    		clickableURL (labelLatest);
+	    	}
+	    	
+	    	if ( average_count != 0) {           // 3 button
+	    		labelPrice.setText("" + total_price/average_count);
+	    	}
+	    	else {
+	    		labelPrice.setText("-");
+	    	}
+	    	
+	    	labelCount.setText(""+count);     // 4 button
+	    	
+	    	//basic 1 end
+	    	
 	    	showinfo(items);//basic 4
 	    	textAreaConsole.setText(output);
 	    	if (count==0){
@@ -331,7 +589,7 @@ public class Controller {
     	String output = "";
     	for (Item item : result) {
     		if (item.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
-    			output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\n";
+    			output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\t" + item.getPortal() + "\n";
     			item.setHyperlink(item.getUrl());
     			clickableURL(item.getHyperlink());
     			items.add(item);
@@ -355,7 +613,7 @@ public class Controller {
     	List<Item> result = scraper.scrape(previoussearch);
     	String output = "";
     	for (Item item : result) {
-    		output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\n";
+    		output += item.getTitle() + "\t" + item.getPrice() + "\t" + item.getUrl() +"\t"+item.getPostdate()+ "\t" + item.getPortal() + "\n";
     		item.setHyperlink(item.getUrl());
     		clickableURL(item.getHyperlink());
     		items.add(item);

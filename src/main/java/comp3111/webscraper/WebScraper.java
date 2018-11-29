@@ -1,6 +1,8 @@
 package comp3111.webscraper;
 
+import java.awt.Container;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -88,9 +90,40 @@ public class WebScraper {
 		
 		try {
 			int counter = 0; //to count how many pages has scraped
-			String searchUrl = DEFAULT_URL + "search/sss?sort=rel&query=" + URLEncoder.encode(keyword, "UTF-8");
+			
+			// basic 2 start
+			String searchUrl = "https://www.preloved.co.uk/search?keyword=" + URLEncoder.encode(keyword, "UTF-8");
 			HtmlPage page = client.getPage(searchUrl);
 			Vector<Item> result = new Vector<Item>();
+			List<?> items_2 = (List<?>) page.getByXPath("//li[@class='search-result']");
+			for (int i = 0; i < items_2.size(); i++) {
+				HtmlElement htmlItem = (HtmlElement) items_2.get(i);
+				HtmlAnchor itemAnchor = ((HtmlAnchor) htmlItem.getFirstByXPath(".//header[@class='search-result__header']/h2/a"));
+				HtmlElement spanPrice = ((HtmlElement) htmlItem.getFirstByXPath(".//span[@class='search-result__meta.bold.t-color--2-2.u-capitalize.is-price']"));
+
+				// It is possible that an item doesn't have any price, we set the price to 0.0
+				// in this case
+				String itemPrice = spanPrice == null ? "0.0" : spanPrice.asText();
+
+				Item item = new Item();
+				item.setTitle(itemAnchor.asText());
+				item.setUrl(itemAnchor.getHrefAttribute());
+
+				//baisc 2
+				item.setPortal("preloved");
+				//baisc 2
+				
+				item.setPrice(new Double(itemPrice.replace("$", "")));
+				String pos= "no posted date";
+				item.setPostdate(pos);//basic 4,set the item's posted date
+				result.add(item);
+			}
+
+			// basic 2 end
+			
+			searchUrl = DEFAULT_URL + "search/sss?sort=rel&query=" + URLEncoder.encode(keyword, "UTF-8");
+			page = client.getPage(searchUrl);
+			
 			while (true) {
 				counter++;
 				System.out.println("Page "+counter);
@@ -110,10 +143,19 @@ public class WebScraper {
 					item.setTitle(itemAnchor.asText());
 					item.setUrl(itemAnchor.getHrefAttribute());
 
+					//baisc 2
+					item.setPortal("craigslist");
+					//baisc 2
+					
 					item.setPrice(new Double(itemPrice.replace("$", "")));
 					String pos= postdate==null?"no posted date":postdate.asText();//basic 4,check whether the date is null
 					item.setPostdate(pos);//basic 4,set the item's posted date
 					result.add(item);
+				}
+				if ( items.size() == 0 ) {    // handle result not found
+					System.out.println("Finish scraping");
+					client.close();
+					break;                  
 				}
 				HtmlAnchor next = ((HtmlAnchor) page.getFirstByXPath("//*[@id=\"searchform\"]/div[3]/div[3]/span[2]/a[3]")); //basic3, check if there is next page 
 				if (next.getHrefAttribute().toString().compareTo("")==0) {
@@ -126,6 +168,7 @@ public class WebScraper {
 				}
 			
 			}
+		Collections.sort(result);
 		return result;
 		} catch (Exception e) {
 			System.out.println(e);
